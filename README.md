@@ -17,7 +17,7 @@
   To use this web application, simply click the "install" button in the upper left-hand corner. This will add the PWA to your local machine where it can be accessed and used offline. 
 
   ## Contributing
-  Code given for PWA given by instructor. 
+  Code for PWA given by instructor. 
 
   ## Installation
   Simply click the install button in the upper left-hand corner. 
