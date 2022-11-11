@@ -16,6 +16,36 @@ module.exports = () => {
     },
 
     plugins: [
+        new HtmlWebpackPlugin({
+            // object keys and values go here
+            template:'./index.html',
+            title: 'J.A.T.E'
+          }),
+          new InjectManifest({
+            // object keys and values go here
+            swSrc: './src-sw.js',
+            swDest: 'src-sw.js'
+          }),
+          new WebpackPwaManifest({
+            fingerprints: false,
+            injected: true,
+            name: 'J.A.T.E',
+            short_name: 'Just Another Text Editor',
+            description: 'This app creates a text editor...',
+            background_color: '#225ca3',
+            theme_color: '#225ca3',
+            start_url: '/',
+            publicPath: '/',
+            icons: [
+                {
+                  src: path.resolve('src/images/logo.png'),
+                  sizes: [96, 128, 192, 256, 384, 512],
+                  destination: path.join('assets', 'icons'),
+                },
+              ]
+
+          })
+
 
     /*
       TODO:
@@ -62,15 +92,22 @@ module.exports = () => {
     module: {
       rules: [
 
-        /*
-          TODO: In this array, we need to configure the rules 
-          for when Webpack should "bundle-ize" our files. Each rule 
-          is an object. We will be setting up two rules. 
-          
-          You will find both rules in the solutiom for the mini 
-          project. 
-          When you copy and paste them below, you'll be done here.
-        */
+        {
+            test: /\.css$/i,
+            use: ['style-loader', 'css-loader'],
+          },
+          {
+            test: /\.m?js$/,
+            exclude: /node_modules/,
+            // We use babel-loader in order to use ES6.
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env'],
+                plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
+              },
+            },
+          },
 
       ],
     },
